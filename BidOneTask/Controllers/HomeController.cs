@@ -27,6 +27,17 @@ namespace BidOneTask.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(PersonViewModel person)
+        {
+            FileHelper fh = new FileHelper();
+
+            //write person object to a file
+            fh.Create(person, _webHostEnvironment);
+
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -34,15 +45,5 @@ namespace BidOneTask.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
-        [HttpPost]
-        public IActionResult SubmitPerson(PersonViewModel person)
-        {
-            FileHelper fh = new FileHelper();
-
-            fh.Create(person, _webHostEnvironment); 
-
-            return View("Index");
-        }
     }
 }

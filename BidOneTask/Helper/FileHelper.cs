@@ -11,7 +11,6 @@ namespace BidOneTask.Helper
 {
     public class FileHelper
     {
-        //private readonly IWebHostEnvironment _webHostEnvironment;
         public bool Create(PersonViewModel person, IWebHostEnvironment webHostEnvironment)
         {
             bool retVal = true;
@@ -20,9 +19,13 @@ namespace BidOneTask.Helper
             {
                 JObject obj = (JObject)JToken.FromObject(person);
 
+                // folder path is in wwwroot/output folder
                 string folderPath = Path.Combine(webHostEnvironment.WebRootPath,"Output");
+
+                // file name is a GUID.json
                 var fileName = Guid.NewGuid().ToString() + ".json";
-                string filePath = Path.Combine(folderPath,fileName);
+                string filePath = Path.Combine(folderPath,fileName);                
+           
                 File.WriteAllText(filePath, obj.ToString());
 
                 return retVal;
