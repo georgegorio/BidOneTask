@@ -11,9 +11,9 @@ namespace BidOneTask.Helper
 {
     public class FileHelper
     {
-        public bool Create(PersonViewModel person, IWebHostEnvironment webHostEnvironment)
+        public string Create(PersonViewModel person, IWebHostEnvironment webHostEnvironment)
         {
-            bool retVal = true;
+            string retVal = "";
 
             try
             {
@@ -33,7 +33,7 @@ namespace BidOneTask.Helper
             catch (Exception ex)
             {
 
-                return retVal;
+                return ex.ToString();
             }          
            
         }

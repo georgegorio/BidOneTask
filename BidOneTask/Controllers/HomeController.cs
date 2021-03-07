@@ -31,11 +31,23 @@ namespace BidOneTask.Controllers
         public IActionResult Index(PersonViewModel person)
         {
             FileHelper fh = new FileHelper();
+            try
+            {
+                //write person object to a file
+                string message = fh.Create(person, _webHostEnvironment);
 
-            //write person object to a file
-            fh.Create(person, _webHostEnvironment);
+                // check if successful writing to file; if not display error message;
+                if (!string.IsNullOrEmpty(message))
+                    return View("Error", message);
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                return View("Error", ex.Message);
+            }
+
         }
 
 
